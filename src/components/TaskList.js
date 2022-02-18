@@ -16,7 +16,7 @@ export default function TaskList() {
       fetch('https://much-todo-fk.uc.r.appspot.com/tasks')
       .then(response => response.json())
       .then(setTasks)
-      .catch()
+      .catch(alert)
   })
   return (
     <List

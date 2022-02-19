@@ -5,14 +5,14 @@ export default function NewTask() {
   const [newTask, setNewTask] = useState("");
 
   const taskObject = {
-    task: newTask
+    task: newTask,
   };
 
   const handleInputText = (event) => {
-      setNewTask(event.target.value)
-  }
+    setNewTask(event.target.value);
+  };
 
-  console.log(newTask)
+  console.log(newTask);
 
   const handleButtonSubmit = () => {
     fetch("https://much-todo-fk.uc.r.appspot.com/tasks", {
@@ -28,13 +28,17 @@ export default function NewTask() {
   };
 
   return (
-    <>
-      <h2>Add new task:</h2>
-      <Input
-        placeholder="Enter task"
-        onChange={(event) => handleInputText(event)}
-      />
-      <button onClick={handleButtonSubmit}>Add task</button>
-    </>
+    <div className="add-new-task">
+      <h2 className="add-new-task-heading">Add new task:</h2>
+      <Input.Group compact style={{ display: 'flex' }}>
+        <Input
+          placeholder="Enter task"
+          onChange={(event) => handleInputText(event)}
+        />
+        <Button className="add-task-btn" type="default" size="large" onClick={handleButtonSubmit}>
+          Add Task
+        </Button>
+      </Input.Group>
+    </div>
   );
 }

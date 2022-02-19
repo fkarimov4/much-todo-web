@@ -24,6 +24,7 @@ export default function TaskList() {
 
   return (
     <List
+      className="task-list"
       bordered
       dataSource={tasks}
       renderItem={(item) => <Task item={item} />}

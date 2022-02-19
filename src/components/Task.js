@@ -7,7 +7,9 @@ export default function Task({ item }) {
     if(item.done) {
         setItemStyle({
             color: 'grey', 
-            textDecoration: 'line-through'})
+            textDecoration: 'line-through',
+            backgroundColor: '#f2fff9'
+          })
     } else {
         setItemStyle({
             color: 'black',

@@ -23,3 +23,9 @@
 .ant-list-items {
   background-color: #fff;
 }
+
+input:checked {
+  height: 2rem;
+  width: 2rem;
+  background-color: #33E28E;
+}

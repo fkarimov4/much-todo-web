@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { List } from "antd";
+import { List, Checkbox } from "antd";
 
 export default function Task({ item, setTasks }) {
   const [itemStyle, setItemStyle] = useState({});
@@ -35,7 +35,12 @@ export default function Task({ item, setTasks }) {
   };
 
   return (
-    <List.Item onClick={handleToggleTaskDone} style={itemStyle}>
+    <List.Item style={itemStyle}>
+      <Checkbox
+        style={{ margin: "10px" }}
+        onChange={handleToggleTaskDone}
+        checked={item.done}
+      />
       {item.task}
     </List.Item>
   );

@@ -1,7 +1,5 @@
 import { Layout } from "antd";
 import Main from "./components/Main";
-import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
 import "./App.css";
 
 function App() {
@@ -49,7 +47,7 @@ function App() {
           />
         </svg>
       </Layout.Header>
-      <Layout.Content style={{ padding: "0 50px", marginTop: 64 }}>
+      <Layout.Content style={{ padding: "0 20px", marginTop: 64 }}>
         <Main />
       </Layout.Content>
       <Layout.Footer style={{ textAlign: "center" }}>

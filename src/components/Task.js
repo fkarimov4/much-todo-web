@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { List, Checkbox } from "antd";
 
-export default function Task({ item, setTasks }) {
+export default function Task({ item, setTasks, setLoading }) {
   const [itemStyle, setItemStyle] = useState({});
   useEffect(() => {
     if (item.done) {
@@ -19,6 +19,7 @@ export default function Task({ item, setTasks }) {
   }, [item]);
 
   const handleToggleTaskDone = () => {
+    setLoading(true);
     fetch(`https://much-todo-fk.uc.r.appspot.com/tasks/${item.id}`, {
       method: "PATCH",
       headers: {
@@ -26,12 +27,18 @@ export default function Task({ item, setTasks }) {
       },
       body: JSON.stringify({ done: !item.done }),
     })
-      .then(
-        fetch("https://much-todo-fk.uc.r.appspot.com/tasks/")
+      .then(() =>
+        fetch("https://much-todo-fk.uc.r.appspot.com/tasks")
           .then((response) => response.json())
-          .then((data) => setTasks(data))
+          .then((data) => {
+            setTasks(data);
+            setLoading(false);
+          })
       )
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   };
 
   return (

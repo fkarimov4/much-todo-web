@@ -1,20 +1,14 @@
 import { Input, Button } from "antd";
 import { useState } from "react";
 
-export default function NewTask({ setTasks }) {
+export default function NewTask({ setTasks, setLoading }) {
   const [newTask, setNewTask] = useState("");
-
-  const handleInputText = (event) => {
-    setNewTask(event.target.value);
-  };
-
-  console.log(newTask);
 
   const handleButtonSubmit = () => {
     if (newTask.trim() === "") {
       return;
     }
-
+    setLoading(true)
     const taskObject = {
       task: newTask,
     };
@@ -29,9 +23,19 @@ export default function NewTask({ setTasks }) {
         setNewTask("");
         fetch("https://much-todo-fk.uc.r.appspot.com/tasks")
           .then((response) => response.json())
-          .then((data) => setTasks(data));
+          .then((data) => {
+            setTasks(data);
+            setLoading(false);
+          });
       })
-      .catch((err) => alert(err));
+      .catch((err) => {
+        alert(err);
+        setLoading(false);
+      });
+  };
+
+  const handleInputText = (event) => {
+    setNewTask(event.target.value);
   };
 
   return (

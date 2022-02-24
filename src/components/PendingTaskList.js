@@ -2,13 +2,18 @@ import { List } from "antd";
 import { useEffect } from "react";
 import Task from "./Task";
 
-export default function TaskList({ tasks, setTasks, loading, setLoading }) {
+export default function PendingTaskList({
+  pendingTasks,
+  setPendingTasks,
+  loading,
+  setLoading,
+}) {
   useEffect(() => {
     setLoading(true);
-    fetch("https://much-todo-fk.uc.r.appspot.com/tasks")
+    fetch("https://much-todo-fk.uc.r.appspot.com/tasks/pending")
       .then((response) => response.json())
       .then((data) => {
-        setTasks(data);
+        setPendingTasks(data);
         setLoading(false);
       })
       .catch((err) => {
@@ -22,9 +27,13 @@ export default function TaskList({ tasks, setTasks, loading, setLoading }) {
       loading={loading}
       className="task-list"
       bordered
-      dataSource={tasks}
+      dataSource={pendingTasks}
       renderItem={(item) => (
-        <Task item={item} setLoading={setLoading} setTasks={setTasks} />
+        <Task
+          item={item}
+          setLoading={setLoading}
+          setPendingTasks={setPendingTasks}
+        />
       )}
     />
   );

@@ -1,18 +1,18 @@
 import { Input, Button } from "antd";
 import { useState } from "react";
 
-export default function NewTask({ setTasks, setLoading }) {
+export default function NewTask({ setPendingTasks, setLoading }) {
   const [newTask, setNewTask] = useState("");
 
   const handleButtonSubmit = () => {
     if (newTask.trim() === "") {
       return;
     }
-    setLoading(true)
+    setLoading(true);
     const taskObject = {
       task: newTask,
     };
-    fetch("https://much-todo-fk.uc.r.appspot.com/tasks", {
+    fetch("https://much-todo-fk.uc.r.appspot.com/tasks/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,10 +21,10 @@ export default function NewTask({ setTasks, setLoading }) {
     })
       .then(() => {
         setNewTask("");
-        fetch("https://much-todo-fk.uc.r.appspot.com/tasks")
+        fetch("https://much-todo-fk.uc.r.appspot.com/tasks/pending")
           .then((response) => response.json())
           .then((data) => {
-            setTasks(data);
+            setPendingTasks(data);
             setLoading(false);
           });
       })

@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { List, Checkbox } from "antd";
 
-export default function Task({ item, setTasks, setLoading }) {
+export default function Task({
+  item,
+  setPendingTasks,
+  setCompletedTasks,
+  setLoading,
+}) {
   const [itemStyle, setItemStyle] = useState({});
   useEffect(() => {
     if (item.done) {
@@ -27,14 +32,23 @@ export default function Task({ item, setTasks, setLoading }) {
       },
       body: JSON.stringify({ done: !item.done }),
     })
-      .then(() =>
-        fetch("https://much-todo-fk.uc.r.appspot.com/tasks")
-          .then((response) => response.json())
-          .then((data) => {
-            setTasks(data);
-            setLoading(false);
-          })
-      )
+      .then(() => {
+        if (item.done) {
+          fetch("https://much-todo-fk.uc.r.appspot.com/tasks/completed")
+            .then((response) => response.json())
+            .then((data) => {
+              setCompletedTasks(data);
+              setLoading(false);
+            });
+        } else {
+          fetch("https://much-todo-fk.uc.r.appspot.com/tasks/pending")
+            .then((response) => response.json())
+            .then((data) => {
+              setPendingTasks(data);
+              setLoading(false);
+            });
+        }
+      })
       .catch((err) => {
         console.error(err);
         setLoading(false);
